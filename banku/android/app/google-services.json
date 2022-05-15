@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "661394112909",
+    "project_id": "miniproject-8163d",
+    "storage_bucket": "miniproject-8163d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661394112909:android:627e6a7250ee2dcc6c3dc4",
+        "android_client_info": {
+          "package_name": "com.example.banku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661394112909-6oodcb4afgs504e1esroqcnsij9sd65c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqs17c2oLgM3xPtG5-dQp5vkwL9rORSXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661394112909-6oodcb4afgs504e1esroqcnsij9sd65c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
