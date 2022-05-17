@@ -5,7 +5,6 @@ class LogModel{
 
   LogModel({this.userId, this.email, this.username});
 
-  //ambil data dari server
   factory LogModel.fromMap(map){
     return LogModel(
       userId: map('userId'),
@@ -14,7 +13,6 @@ class LogModel{
     );
   }
 
-  //mengirim data ke server
   Map<String, dynamic> toMap(){
     return{
       'userId':userId,

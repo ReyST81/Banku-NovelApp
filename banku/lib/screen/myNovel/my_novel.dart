@@ -1,6 +1,8 @@
-import 'package:banku/screen/detail_screen.dart';
-import 'package:banku/screen/edit_screen.dart';
+import 'package:banku/screen/home/detail_screen.dart';
+import 'package:banku/screen/myNovel/edit_screen.dart';
+import 'package:banku/screen/viewModel/view_model_myNovel.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,8 @@ class _MylistPostNoveltate extends State<MyNovel> {
   @override
   void didChangeDependencies(){
     if(isInit == true){
-      Provider.of<NovelViewModel>(context).getAllPostNovel();
+      final user = FirebaseAuth.instance.currentUser;
+      Provider.of<NovelViewModel>(context).getAllMyPostNovel(user!.uid);
       isInit = false;
     }
     super.didChangeDependencies();
@@ -26,6 +29,7 @@ class _MylistPostNoveltate extends State<MyNovel> {
   @override
   Widget build(BuildContext context) {
     final novelProvider = Provider.of<NovelViewModel>(context);
+    final myNovelProvider = Provider.of<MyNovelViewModel>(context);
     return SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -44,27 +48,28 @@ class _MylistPostNoveltate extends State<MyNovel> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                novelProvider.listMyPostNovel.isEmpty? Center(child: Text("You Haven't post anything yet", style: GoogleFonts.dongle(fontSize: 25),),) :
                 Expanded(
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: novelProvider.listPostNovel.length,
+                    itemCount: novelProvider.listMyPostNovel.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        key: Key(novelProvider.listPostNovel[index].key),
+                        key: Key(novelProvider.listMyPostNovel[index].key!),
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => DetailNovel(
                                   image:
-                                      novelProvider.listPostNovel[index].image,
+                                      novelProvider.listMyPostNovel[index].image,
                                   title:
-                                      novelProvider.listPostNovel[index].title,
+                                      novelProvider.listMyPostNovel[index].title,
                                   genre:
-                                      novelProvider.listPostNovel[index].genre,
+                                      novelProvider.listMyPostNovel[index].genre,
                                   description: novelProvider
-                                      .listPostNovel[index].description,
+                                      .listMyPostNovel[index].description,
                                   content: novelProvider
-                                      .listPostNovel[index].content),
+                                      .listMyPostNovel[index].content),
                             ),
                           );
                         },
@@ -77,14 +82,14 @@ class _MylistPostNoveltate extends State<MyNovel> {
                               children: [
                                 Image(
                                   image: NetworkImage(
-                                      novelProvider.listPostNovel[index].image),
+                                      novelProvider.listMyPostNovel[index].image!),
                                   height: 150,
                                   width: 150,
                                 ),
                                 SizedBox(
                                   width: 100,
                                   child: Text(
-                                      novelProvider.listPostNovel[index].title),
+                                      novelProvider.listMyPostNovel[index].title!),
                                 ),
                                 const SizedBox(
                                   width: 40,
@@ -96,8 +101,8 @@ class _MylistPostNoveltate extends State<MyNovel> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => EditScreen(
-                                              keys: novelProvider
-                                                  .listPostNovel[index].key,
+                                              novel: novelProvider
+                                                  .listMyPostNovel[index],
                                             ),
                                           ),
                                         );
@@ -109,8 +114,9 @@ class _MylistPostNoveltate extends State<MyNovel> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        novelProvider.deleteNovel(novelProvider
-                                            .listPostNovel[index].key, index);
+                                        final user = FirebaseAuth.instance.currentUser!.uid;
+                                        myNovelProvider.deleteNovel(novelProvider
+                                            .listMyPostNovel[index].key, novelProvider.listMyPostNovel[index], user);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         primary: const Color(0xff3A5568)

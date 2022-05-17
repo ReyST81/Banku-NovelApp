@@ -233,7 +233,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   postDetailsToFirestore() async {
-    //manggil firestore
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 

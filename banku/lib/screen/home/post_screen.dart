@@ -1,19 +1,32 @@
+import 'package:banku/screen/home/home_nav.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class EditScreen extends StatefulWidget {
-  final String? keys;
-
-  const EditScreen({ Key? key, this.keys}) : super(key: key);
+class PostScreen extends StatefulWidget {
+  const PostScreen({Key? key}) : super(key: key);
 
   @override
-  State<EditScreen> createState() => _EditScreenState();
+  State<PostScreen> createState() => _PostScreenState();
 }
 
-class _EditScreenState extends State<EditScreen> {
+class _PostScreenState extends State<PostScreen> {
+
+  String? user;
+  Future<void> getUserId() async{
+    User userData = FirebaseAuth.instance.currentUser!;
+    setState(() {
+      user = userData.uid.toString();
+    });
+  }
+  @override
+  void initState() {
+    getUserId();
+    super.initState();
+  }
+
   final imageEditingController = TextEditingController();
   final titleEditingController = TextEditingController();
   final genreEditingController = TextEditingController();
@@ -25,19 +38,7 @@ class _EditScreenState extends State<EditScreen> {
   String description = '';
   String content = '';
 
-  @override
-  void didChangeDependencies() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      var novelPostProvider = Provider.of<NovelViewModel>(context, listen: false);
-      await novelPostProvider.getAllPostNovel();
-    });
-    super.didChangeDependencies();
-  }
-  @override
-  void initState() {
-    print(widget.keys);
-    super.initState();
-  }
+//coba onChange
 
   @override
   Widget build(BuildContext context) {
@@ -100,17 +101,17 @@ class _EditScreenState extends State<EditScreen> {
       },
     );
 
-    final contentField = TextFormField(
+    final contentField = TextFormField(      
       controller: contentEditingController,
+      textInputAction: TextInputAction.done,
       maxLines: null,
       keyboardType: TextInputType.multiline,
-      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
           fillColor: const Color.fromARGB(255, 236, 240, 243),
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Please Write Your Novel Story Here...",
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),),),
           onChanged: (String value) {
         content = value;
       },
@@ -123,11 +124,21 @@ class _EditScreenState extends State<EditScreen> {
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () {
-          novelProvider.editNovel(
-            widget.keys ,image, title, genre, description, content
+          novelProvider.postNovel(
+            image, title, genre, description, content, user
           );
-          Navigator.pop(context);
-          Fluttertoast.showToast(msg: "Novel sudah di edit");
+          Navigator.pushAndRemoveUntil(
+        context,
+        PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+          return const HomeNav();
+        }, transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final tween = Tween(begin: 0.0, end: 2.0);
+          return FadeTransition(
+            opacity: animation.drive(tween),
+            child: child,
+          );
+        }),
+        (route) => false);
         },
         child: Text(
           "Submit",
@@ -142,7 +153,7 @@ class _EditScreenState extends State<EditScreen> {
               backgroundColor: const Color(0xff3A5568),
               title: Center(
                 child: Text(
-                  "Edit",
+                  "Post",
                   style: GoogleFonts.dongle(fontSize: 35),
                 ),
               ),

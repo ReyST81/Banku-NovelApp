@@ -1,5 +1,6 @@
-import 'package:banku/screen/detail_screen.dart';
-import 'package:banku/screen/search_fitur.dart';
+import 'package:banku/model/novel_model.dart';
+import 'package:banku/screen/home/detail_screen.dart';
+import 'package:banku/screen/home/search_fitur.dart';
 import 'package:banku/screen/login_regis/login_screen.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,7 +93,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget novelListNew(context, viewModel) {
+  Widget novelListNew(context, List<NovelModel>viewModel) {
+    if(viewModel.isEmpty){
+          return Center(
+            child: Text("This App Is Empty", style: GoogleFonts.dongle(fontSize: 25),),
+          );
+    }
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: viewModel.length,
@@ -121,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image(
-                  image: NetworkImage(viewModel[index].image),
+                  image: NetworkImage(viewModel[index].image!),
                   height: 150,
                   width: 150,
                   loadingBuilder: (context, child, loadingProgress){
@@ -137,26 +143,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                SizedBox(
-                  width: 200,
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           const Text("title : "),
-                          Text(viewModel[index].title, textAlign: TextAlign.start,),
+                          Expanded(child: Text(viewModel[index].title!, textAlign: TextAlign.start,)),
                         ],
                       ),
                       const SizedBox(height: 20,),
                       Row(
                         children: [
                           const Text("genre : "),
-                          Flexible(child: Text(viewModel[index].genre, textAlign: TextAlign.start)), 
+                          Flexible(child: Text(viewModel[index].genre!, textAlign: TextAlign.start)), 
                         ],
                       )
                     ],
-                  )
+                  ),
                 ),
               ],
             ),

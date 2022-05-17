@@ -1,5 +1,6 @@
 
 import 'package:banku/screen/login_regis/login_screen.dart';
+import 'package:banku/screen/viewModel/view_model_myNovel.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => NovelViewModel())
+        ChangeNotifierProvider(create: (_) => NovelViewModel()),
+        ChangeNotifierProvider(create: (_) => MyNovelViewModel())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -25,10 +25,7 @@ class _DetailNovelState extends State<DetailNovel> {
         onPressed: (){
           Navigator.pop(context);
         },
-        ),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.thumb_up_off_alt_sharp))
-        ],
+        )
         
       ),
       body: SafeArea(

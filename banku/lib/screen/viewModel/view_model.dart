@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 class NovelViewModel with ChangeNotifier{
 
   List<NovelModel> _listPostNovel = [];
-  List get listPostNovel => _listPostNovel;
+  List<NovelModel> get listPostNovel => _listPostNovel;
+
+  List<NovelModel> _listMyPostNovel = [];
+  List<NovelModel> get listMyPostNovel => _listMyPostNovel;
 
   List<NovelModel> result = [];
   List<NovelModel> get listsearch => result;
@@ -25,6 +28,12 @@ class NovelViewModel with ChangeNotifier{
     notifyListeners();
   }
 
+  getAllMyPostNovel(user) async{
+    final allMyPostNovel = await NovelAPI().getMyPostNovel(user);
+    _listMyPostNovel = allMyPostNovel;
+    notifyListeners();
+  }
+
   getSearch(query)async{
     final allPostNovel = await NovelAPI().getPostNovel();
     _listPostNovel = allPostNovel;
@@ -33,28 +42,9 @@ class NovelViewModel with ChangeNotifier{
     },).toList();
   }
 
-  editNovel(key, image, title, genre, description, content)async{
-    await NovelAPI().editNovelData(key:key,image: image, title: title, genre: genre, description: description, content: content );
+  Future<void> deleteNovel(key, novel, user)async{
+    await NovelAPI().deleteNovelData(key: key, user: user);
+    _listPostNovel.removeWhere((e)=> e.key == key);
     notifyListeners();
   }
-
-  Future<void> deleteNovel(key, index)async{
-    await NovelAPI().deleteNovelData(key: key);
-    listPostNovel.removeAt(index);
-    notifyListeners();
-  }
-
-  
-
-  //ini untuk my novel
-
-  // getAllMyNovel(query)async{
-  //   final allPostNovel = await NovelAPI.getPostNovel();
-  //   _listPostNovel = allPostNovel;
-  //   result = listPostNovel.where((element) {
-  //     return element.title!.toLowerCase().contains(query.toLowerCase());
-  //   },).toList();
-  //   notifyListeners();
-  // }
-
-  }
+}

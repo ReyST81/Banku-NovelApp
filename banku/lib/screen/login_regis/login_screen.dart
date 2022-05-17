@@ -1,4 +1,4 @@
-import 'package:banku/screen/home_nav.dart';
+import 'package:banku/screen/home/home_nav.dart';
 import 'package:banku/screen/login_regis/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       controller: passwordController,
       obscureText: true,
-      // validator: (){},
       onSaved: (value) {
         passwordController.text = value!;
       },

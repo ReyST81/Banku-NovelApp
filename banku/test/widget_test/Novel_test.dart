@@ -1,8 +1,8 @@
 import 'package:banku/model/novel_model.dart';
-import 'package:banku/screen/detail_screen.dart';
-import 'package:banku/screen/edit_screen.dart';
-import 'package:banku/screen/home_screen.dart';
-import 'package:banku/screen/my_novel.dart';
+import 'package:banku/screen/home/detail_screen.dart';
+import 'package:banku/screen/myNovel/edit_screen.dart';
+import 'package:banku/screen/home/home_screen.dart';
+import 'package:banku/screen/myNovel/my_novel.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

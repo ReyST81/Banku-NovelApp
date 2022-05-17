@@ -1,6 +1,6 @@
-import 'package:banku/screen/home_screen.dart';
-import 'package:banku/screen/my_novel.dart';
-import 'package:banku/screen/post_screen.dart';
+import 'package:banku/screen/home/home_screen.dart';
+import 'package:banku/screen/myNovel/my_novel.dart';
+import 'package:banku/screen/home/post_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeNav extends StatefulWidget {

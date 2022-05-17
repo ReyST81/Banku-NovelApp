@@ -1,5 +1,4 @@
-import 'package:banku/model/novel_model.dart';
-import 'package:banku/screen/detail_screen.dart';
+import 'package:banku/screen/home/detail_screen.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
