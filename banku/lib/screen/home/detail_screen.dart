@@ -29,41 +29,41 @@ class _DetailNovelState extends State<DetailNovel> {
         
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.only(right: 16, left: 16, top: 20),
-            child: Center(
-              child: Column(
-                children: [
-                  Container(
-                    height: 180,
-                    width: 180,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage(widget.image!.toString()),)
+          child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.only(right: 16, left: 16, top: 20),
+              child: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 180,
+                      width: 180,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: NetworkImage(widget.image!.toString()),)
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20,),
-                  Text(widget.title.toString(), style: GoogleFonts.dongle(fontSize: 26)),
-                  const Divider(
-                        color: Colors.black,
-                      ),
-                  Text(widget.genre.toString(), style: GoogleFonts.dongle(fontSize: 26)),
-                  const Divider(
-                        color: Colors.black,
-                      ),
-                  Text("Description", style: GoogleFonts.dongle(fontSize: 26)),
-                  Text(widget.description.toString(),  textAlign: TextAlign.center,),
-                  const Divider(
-                        color: Colors.black,
-                      ),
-                  const SizedBox(height: 20,),
-                  Text(widget.content.toString(), style: GoogleFonts.dongle(fontSize: 26),)
-                ],
-              ),
-            )
+                    const SizedBox(height: 20,),
+                    Text(widget.title.toString(), style: GoogleFonts.dongle(fontSize: 26)),
+                    const Divider(
+                          color: Colors.black,
+                        ),
+                    Text(widget.genre.toString(), style: GoogleFonts.dongle(fontSize: 26)),
+                    const Divider(
+                          color: Colors.black,
+                        ),
+                    Text("Description", style: GoogleFonts.dongle(fontSize: 26)),
+                    Text(widget.description.toString(),  textAlign: TextAlign.center,),
+                    const Divider(
+                          color: Colors.black,
+                        ),
+                    const SizedBox(height: 20,),
+                    Text(widget.content.toString(), style: GoogleFonts.dongle(fontSize: 26),)
+                  ],
+                ),
+              )
+            ),
           ),
         ),
-      ),
     );
   }
 }

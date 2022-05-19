@@ -1,6 +1,7 @@
 import 'package:banku/screen/home/detail_screen.dart';
 import 'package:banku/screen/viewModel/view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class SearchNovel extends SearchDelegate {
@@ -69,6 +70,6 @@ class SearchNovel extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return const Center(child: Text("Search Novel"),);
+    return Center(child: Text("Type a novel based on the title", style: GoogleFonts.dongle(fontSize: 25)),);
   }
 }

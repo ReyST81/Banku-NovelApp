@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:banku/model/novel_model.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../novel_model.dart';
 
 class NovelAPI{
-  addNovelData({String? content, String? genre, String? title, String? description, String? image, String? user}) async{
+  addNovelData({String? content, String? genre, String? title, String? description, String? image, String? user, String? date}) async{
     await Dio().post("https://banku-ec38c-default-rtdb.firebaseio.com/PostNovel/$user.json", data: jsonEncode(
       {
           "content":content,
@@ -15,15 +13,11 @@ class NovelAPI{
           "title":title,
           "description":description,
           "image":image,
+          "date":date,
       }
     ));
   }
 
-  String? user;
-  Future<void> getUserId() async{
-    User userData = FirebaseAuth.instance.currentUser!;
-    user = userData.uid.toString();
-  }
 
   Future <List<NovelModel>> getPostNovel()async{
     List<NovelModel> listPostDisplay = [];
@@ -32,7 +26,6 @@ class NovelAPI{
     );
     if(response.data != null){
       (response.data as Map<String,dynamic>).forEach((key, value) {
-      
       for(var i in value.keys){
         listPostDisplay.add(NovelModel(
           key: i, 
@@ -40,10 +33,10 @@ class NovelAPI{
           title: value[i]["title"],
           genre: value[i]["genre"],
           description: value[i]["description"],
-          content: value[i]["content"]
+          content: value[i]["content"],
+          date: value[i]["date"]
       ),);
       }
-      
     });
     }
     return listPostDisplay;
@@ -66,15 +59,14 @@ class NovelAPI{
           content: value["content"],
           user: user
       ),);
-      
     });
     }
     return listPostDisplay;
   }
 
-  editNovelData({String? content, String? genre, String? title, String? description, String? image, String? key, String? user}) async{
+  editNovelData({String? content, String? genre, String? title, String? description, String? image, String? key, String? user, String? date}) async{
     await Dio().put(
-      "https://banku-ec38c-default-rtdb.firebaseio.com/PostNovel/$user/$key.json", data: jsonEncode({"content": content, "description":description, "genre":genre, "image":image, "title":title})
+      "https://banku-ec38c-default-rtdb.firebaseio.com/PostNovel/$user/$key.json", data: jsonEncode({"content": content, "description":description, "genre":genre, "image":image, "title":title, "date": date})
     );
   }
 

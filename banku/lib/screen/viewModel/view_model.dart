@@ -17,14 +17,17 @@ class NovelViewModel with ChangeNotifier{
   List<NovelModel> get listsearch => result;
   
 
-  postNovel(image, title, genre, description, content, user)async{
-    await NovelAPI().addNovelData(image: image, title: title, genre: genre, description: description, content: content , user: user);
+  postNovel(image, title, genre, description, content, user, date)async{
+    await NovelAPI().addNovelData(image: image, title: title, genre: genre, description: description, content: content , user: user, date: date);
     notifyListeners();
   }
 
   getAllPostNovel()async{
     final allPostNovel = await NovelAPI().getPostNovel();
     _listPostNovel = allPostNovel;
+    _listPostNovel.sort((b, a) {
+      return a.date!.compareTo(b.date!);
+    },);
     notifyListeners();
   }
 

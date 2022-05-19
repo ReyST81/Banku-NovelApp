@@ -9,7 +9,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -18,21 +17,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   bool isInit = true;
   @override
-  void didChangeDependencies(){
-    if(isInit == true){
+  void didChangeDependencies() {
+    if (isInit == true) {
       Provider.of<NovelViewModel>(context).getAllPostNovel();
       isInit = false;
     }
     super.didChangeDependencies();
   }
-  
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      var novelPostProvider = Provider.of<NovelViewModel>(context, listen: false);
+      var novelPostProvider =
+          Provider.of<NovelViewModel>(context, listen: false);
       await novelPostProvider.getAllPostNovel();
     });
     super.initState();
@@ -47,57 +46,64 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CircularProgressIndicator(),
       );
     }
-
     return SafeArea(
       child: Scaffold(
-            body: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.only(left: 18, right: 18, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        body: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(left: 18, right: 18, top: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              showSearch(
-                                  context: context, delegate: SearchNovel());
-                            },
-                            icon: const Icon(Icons.search)),
-                        Text("BANKU", style: GoogleFonts.dongle(fontSize: 36, color: const Color(0xff3A5568), fontWeight: FontWeight.bold),),
-                        IconButton(
-                            onPressed: () {
-                              logout(context);
-                            },
-                            icon: const Icon(Icons.logout))
-                      ],
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          showSearch(context: context, delegate: SearchNovel());
+                        },
+                        icon: const Icon(Icons.search)),
                     Text(
-                      "Explore All Novel",
-                      style: GoogleFonts.dongle(fontSize: 25),
+                      "BANKU",
+                      style: GoogleFonts.dongle(
+                          fontSize: 36,
+                          color: const Color(0xff3A5568),
+                          fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 600,
-                      child: novelListNew(context, NovelProvider.listPostNovel),
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          logout(context);
+                        },
+                        icon: const Icon(Icons.logout))
                   ],
                 ),
-              ),
+                Text(
+                  "Explore All Novel",
+                  style: GoogleFonts.dongle(fontSize: 25),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 600,
+                  child: novelListNew(context, NovelProvider.listPostNovel),
+                ),
+              ],
             ),
           ),
+        ),
+      ),
     );
   }
 
-  Widget novelListNew(context, List<NovelModel>viewModel) {
-    if(viewModel.isEmpty){
-          return Center(
-            child: Text("This App Is Empty", style: GoogleFonts.dongle(fontSize: 25),),
-          );
+  Widget novelListNew(context, List<NovelModel> viewModel) {
+    if (viewModel.isEmpty) {
+      return Center(
+        child: Text(
+          "There Are No Novels Uploaded Yet.",
+          style: GoogleFonts.dongle(fontSize: 25),
+        ),
+      );
     }
     return ListView.builder(
       scrollDirection: Axis.vertical,
@@ -130,15 +136,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   image: NetworkImage(viewModel[index].image!),
                   height: 150,
                   width: 150,
-                  loadingBuilder: (context, child, loadingProgress){
-                    if (loadingProgress == null){
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
                       return child;
                     }
                     return const Center(
                       child: SizedBox(
                         height: 80,
                         width: 80,
-                        child: SpinKitCubeGrid(size: 80, color: Colors.grey,),
+                        child: SpinKitCubeGrid(
+                          size: 80,
+                          color: Colors.grey,
+                        ),
                       ),
                     );
                   },
@@ -150,14 +159,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         children: [
                           const Text("title : "),
-                          Expanded(child: Text(viewModel[index].title!, textAlign: TextAlign.start,)),
+                          Expanded(
+                              child: Text(
+                            viewModel[index].title!,
+                            textAlign: TextAlign.start,
+                          )),
                         ],
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         children: [
                           const Text("genre : "),
-                          Flexible(child: Text(viewModel[index].genre!, textAlign: TextAlign.start)), 
+                          Flexible(
+                              child: Text(viewModel[index].genre!,
+                                  textAlign: TextAlign.start)),
                         ],
                       )
                     ],

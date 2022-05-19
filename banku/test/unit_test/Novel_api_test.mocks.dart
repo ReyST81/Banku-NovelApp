@@ -5,6 +5,7 @@
 import 'dart:async' as _i3;
 
 import 'package:banku/model/api/novel_api.dart' as _i2;
+import 'package:banku/model/novel_model.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,11 +27,14 @@ class MockNovelAPI extends _i1.Mock implements _i2.NovelAPI {
   }
 
   @override
-  set user(String? _user) => super.noSuchMethod(Invocation.setter(#user, _user),
-      returnValueForMissingStub: null);
+  _i3.Future<List<_i4.NovelModel>> getPostNovel() => (super.noSuchMethod(
+          Invocation.method(#getPostNovel, []),
+          returnValue: Future<List<_i4.NovelModel>>.value(<_i4.NovelModel>[]))
+      as _i3.Future<List<_i4.NovelModel>>);
   @override
-  _i3.Future<void> getUserId() =>
-      (super.noSuchMethod(Invocation.method(#getUserId, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  _i3.Future<List<_i4.NovelModel>> getMyPostNovel(dynamic user) =>
+      (super.noSuchMethod(Invocation.method(#getMyPostNovel, [user]),
+              returnValue:
+                  Future<List<_i4.NovelModel>>.value(<_i4.NovelModel>[]))
+          as _i3.Future<List<_i4.NovelModel>>);
 }

@@ -18,7 +18,6 @@ void main(){
     );
     var novel = await novelAPI.getPostNovel();
     expect(novel.isNotEmpty, true);
-
   });
 });
 }

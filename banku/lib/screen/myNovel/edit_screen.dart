@@ -1,6 +1,5 @@
 import 'package:banku/model/novel_model.dart';
 import 'package:banku/screen/viewModel/view_model_myNovel.dart';
-import 'package:banku/screen/viewModel/view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

@@ -28,6 +28,33 @@ class _MylistPostNoveltate extends State<MyNovel> {
   }
   @override
   Widget build(BuildContext context) {
+
+    void AlertDialogBox(BuildContext context){
+    // showDialog(
+    //   context: context, 
+    //   builder: (BuildContext context){
+    //     return AlertDialog(
+    //       content: Container(
+    //         width: MediaQuery.of(context).size.width/1.2,
+    //         height: MediaQuery.of(context).size.height/4,
+    //         color: Colors.white,
+    //         child: Container(
+    //           margin: const EdgeInsets.all(10),
+    //           child: Column(
+    //             children: [
+    //               ElevatedButton(
+    //                 onPressed: (){}, 
+    //                 child: child
+    //               )
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     );
+    //   }
+    // );
+  }
+
     final novelProvider = Provider.of<NovelViewModel>(context);
     final myNovelProvider = Provider.of<MyNovelViewModel>(context);
     return SafeArea(
@@ -42,7 +69,6 @@ class _MylistPostNoveltate extends State<MyNovel> {
             ),
           ),
           body: Container(
-            key: const Key("message this is Ok"),
             margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -113,15 +139,65 @@ class _MylistPostNoveltate extends State<MyNovel> {
                                       child: const Text("Edit"),
                                     ),
                                     ElevatedButton(
-                                      onPressed: () {
-                                        final user = FirebaseAuth.instance.currentUser!.uid;
-                                        myNovelProvider.deleteNovel(novelProvider
-                                            .listMyPostNovel[index].key, novelProvider.listMyPostNovel[index], user);
+                                      onPressed: () { 
+                                        showDialog(
+                                          context: context, 
+                                          builder: (context){
+                                            return  AlertDialog(
+                                                content: Container(
+                                                  width: MediaQuery.of(context).size.width/1.2,
+                                                  height: MediaQuery.of(context).size.height/4,
+                                                  color: Colors.white,
+                                                  child: Container(
+                                                    margin: const EdgeInsets.all(10),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [
+                                                        const Icon(Icons.warning_amber_rounded, color: Colors.red, size: 40,),
+                                                        Text(
+                                                          "Are you sure you want to delete this Novel?",
+                                                          textAlign: TextAlign.center,
+                                                          style: GoogleFonts.dongle(fontSize: 28),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                          children: [
+                                                            ElevatedButton( 
+                                                              onPressed: (){
+                                                                final user = FirebaseAuth.instance.currentUser!.uid;
+                                                                  myNovelProvider.deleteNovel(novelProvider
+                                                                  .listMyPostNovel[index].key, novelProvider.listMyPostNovel[index], user);
+                                                                  Navigator.of(context, rootNavigator: true).pop();
+                                                              }, 
+                                                              child: const Text("Yes"),
+                                                              style: ElevatedButton.styleFrom(
+                                                                primary: Colors.red
+                                                              ),
+                                                            ),
+                                                            ElevatedButton( 
+                                                              onPressed: (){
+                                                                Navigator.of(context, rootNavigator: true).pop();
+                                                              }, 
+                                                              child: const Text("No"),
+                                                              style: ElevatedButton.styleFrom(
+                                                                primary: const Color(0xff3A5568)
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                          }
+                                        );
                                       },
                                       style: ElevatedButton.styleFrom(
                                         primary: const Color(0xff3A5568)
                                       ),
                                       child: const Text("Delete"),
+                                      
                                     )
                                   ],
                                 ),
@@ -139,4 +215,5 @@ class _MylistPostNoveltate extends State<MyNovel> {
         ),
       );
   }
+  
 }

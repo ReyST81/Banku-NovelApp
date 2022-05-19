@@ -1,15 +1,13 @@
-
 class NovelModel{
   String? genre;
   String? image;
-  String? likes;
   String? title;
   String? content;
   String? description;
   String? key;
   String? user;
-
-  NovelModel({this.content,  this.genre,  this.title,  this.description,  this.image,  this.likes, this.key, this.user});
+  String? date;
+  NovelModel({this.content,  this.genre,  this.title,  this.description,  this.image, this.key, this.user, this.date});
 
   factory NovelModel.formJson(Map<String,dynamic>json){
     return NovelModel(
@@ -18,9 +16,8 @@ class NovelModel{
       title: json['title'],
       description: json['description'],
       image: json['image'],
-      likes: json['likes'],
-      user: json['user']
-
+      user: json['user'],
+      date: json['date']
       );
   }
   Map<String, dynamic> toJson(){
@@ -30,8 +27,8 @@ class NovelModel{
       'title':title,
       'description':description,
       'image':image,
-      'likes':likes,  
-      'user': user
+      'user': user,
+      'date': date
     };
   }
 }
