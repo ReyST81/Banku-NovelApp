@@ -67,15 +67,15 @@ Berikut adalah Package yang digunakan pada aplikasi ini :
 
 
 cupertino_icons: ^1.0.2
-  google_fonts: ^2.3.2
-  cloud_firestore: ^3.1.13
-  firebase_auth: ^3.3.16
-  fluttertoast: ^8.0.9
-  dio: ^4.0.6
-  http: ^0.13.4
-  provider: ^6.0.2
-  flutter_spinkit: ^5.1.0
-  firebase_core: ^1.17.0
-  intl: ^0.17.0
+- google_fonts: ^2.3.2
+- cloud_firestore: ^3.1.13
+- firebase_auth: ^3.3.16
+- fluttertoast: ^8.0.9
+- dio: ^4.0.6
+- http: ^0.13.4
+- provider: ^6.0.2
+- flutter_spinkit: ^5.1.0
+- firebase_core: ^1.17.0
+- intl: ^0.17.0
 - mockito:
 - build_runner:
